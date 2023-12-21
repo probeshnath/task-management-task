@@ -79,7 +79,7 @@ const Register = () => {
                   <input {...register("photo", { required: true })} type="file" placeholder="Photo" className="w-full rounded-md py-1 px-3 mb-2" />
                 </div>
                 <div className="form-control mt-3">
-                  <input className="w-full rounded-md py-1 px-3 mb-2 text-white bg-blue-700" type="submit" value="Sign Up" />
+                  <input className="w-full rounded-md py-1 px-3 mb-2 text-white bg-blue-700 cursor-pointer" type="submit" value="Sign Up" />
                 </div>
               </form>
               <p className="px-6 text-white text-right "><small>Already have an account <Link to="/login" className='text-blue-700 font-bold'>Sign In</Link></small></p>

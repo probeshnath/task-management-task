@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SocialLogin from '../components/SocialLogin'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { AuthContext } from '../provider/AuthProvider'
+import { toast } from 'react-toastify'
 
 const Login = () => {
   const { register, handleSubmit, reset, watch, formState: { errors }, } = useForm()
   const navigate = useNavigate()
+  const {signInUser} = useContext(AuthContext)
 
-  const onSubmit = async (data) => {}
+  const onSubmit = async (data) => {
+     // console.log(data)
+     signInUser(data.email,data.password)
+     .then(res =>{
+       console.log(res.user)
+       toast.success("Login Successfully !!")
+       navigate("/")
+     })
+     .catch(error =>{
+       console.log(error)
+       toast.error(error.message)
+     })
+  }
   return (
     <div>
 
