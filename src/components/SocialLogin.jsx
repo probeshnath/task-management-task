@@ -1,6 +1,11 @@
+import { useContext } from 'react'
 import logo from '../assets/google.png'
+import { AuthContext } from '../provider/AuthProvider'
 
 const SocialLogin = () => {
+
+    const {name }= useContext(AuthContext)
+    console.log("name",name)
 
     // google login
     const googleLogin = () =>{}
