@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AuthContext } from '../../provider/AuthProvider'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +10,8 @@ const DashboardHome = () => {
     const { register, handleSubmit, reset, watch, formState: { errors }, } = useForm()
     const navigate = useNavigate()
     const axiosPublic = usePublicAxios()
+
+
 
 
     const onSubmit = async (data) => {
@@ -55,6 +57,9 @@ const DashboardHome = () => {
         }
 
     }
+
+   
+
     return (
         <div>
             <div className='flex gap-2 items-center'>
