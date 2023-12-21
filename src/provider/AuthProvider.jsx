@@ -18,9 +18,24 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, googleProvider);
     }
 
+    useEffect(()=>{
+
+      const unSubscribe = onAuthStateChanged(auth,(currentUser)=>{
+        setUser(currentUser);
+        setLoading(false)
+        console.log(currentUser)
+ 
+        
+      })
+      return ()=>{
+        return unSubscribe()
+      }
+    },[])
+
     const userInfo = {
         handleGoogleLogin
     }
+
   return (
     <AuthContext.Provider value={userInfo}>
         {children}

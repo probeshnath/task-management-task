@@ -1,10 +1,13 @@
 import { useContext } from 'react'
 import logo from '../assets/google.png'
 import { AuthContext } from '../provider/AuthProvider'
+import { useNavigate } from 'react-router-dom'
+import {  toast } from 'react-toastify';
 
 const SocialLogin = () => {
 
     const {handleGoogleLogin } = useContext(AuthContext)
+    const navigate = useNavigate()
     // console.log("name",name)
 
     // google login
@@ -12,9 +15,13 @@ const SocialLogin = () => {
         handleGoogleLogin()
         .then((res) =>{
             console.log(res.user)
+            toast.success("User Create or Login successfully")
+            navigate("/")
+
         })
         .catch((err) =>{
             console.log(err)
+            toast.error(err?.message)
         })
     }
 

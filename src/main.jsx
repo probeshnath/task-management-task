@@ -9,6 +9,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import AuthProvider from './provider/AuthProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // route
@@ -45,5 +47,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
+    <ToastContainer />
   </React.StrictMode>,
 )
