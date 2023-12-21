@@ -1,17 +1,41 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { FaBars } from "react-icons/fa";
+import { AuthContext } from '../provider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false)
+    const {user,logoutUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const logout = () =>{
+        logoutUser()
+        .then(()=>{
+            toast.success("Logout successfully")
+            navigate("/")
+        })
+        .catch((error) =>{
+            toast.error(error.message)
+        })
+    }
 
     // navlink for re usable
     const links = <>
         <li><NavLink to="/" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Home </NavLink></li>
         <li><NavLink to="/hgh" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Messages </NavLink></li>
-        <li><NavLink to="/hgh" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Messages </NavLink></li>
-        <li><NavLink to="/login" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Login </NavLink></li>
-        <li><NavLink to="/register" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Register </NavLink></li>
+        
+        {
+            user ? <>
+            <li><NavLink to="/dashboard" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Dashboard </NavLink></li>
+            <li><button onClick={logout}  className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Logout </button></li>
+            </>
+             : 
+            <>
+            <li><NavLink to="/login" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Login </NavLink></li>
+            <li><NavLink to="/register" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Register </NavLink></li>
+            </>
+        }
     </>
     return (
         <div className='bg-black text-gray-300 p-3'>
