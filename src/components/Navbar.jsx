@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaBars } from "react-icons/fa";
 import { AuthContext } from '../provider/AuthProvider';
 import { toast } from 'react-toastify';
@@ -40,10 +40,12 @@ const Navbar = () => {
     return (
         <div className='bg-black text-gray-300 p-3'>
             <div className="max-w-7xl flex items-center justify-between mx-auto">
-                <div className='flex items-center gap-2'>
+               <Link to="/">
+               <div className='flex items-center gap-2'>
                     <img src="/logo.png" alt="" />
                     <h2 className='text-2xl font-bold'>SCC Technovision</h2>
                 </div>
+               </Link>
                 <div>
                     <ul className='hidden md:flex gap-6 '>
                         {links}
