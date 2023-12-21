@@ -12,7 +12,8 @@ import AuthProvider from './provider/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DashboardHome from './pages/Dashboard/DashboardHome';
-import MyProfile from './pages/Dashboard/MyProfile';
+import MyProfile from './pages/Dashboard/MyTasks';
+import MyTasks from './pages/Dashboard/MyTasks';
 
 
 // route
@@ -43,8 +44,8 @@ const router = createBrowserRouter([
           element: <DashboardHome ></DashboardHome>
          },
          {
-          path:"/dashboard/profile",
-          element: <MyProfile></MyProfile>
+          path:"/dashboard/mytasks",
+          element: <MyTasks></MyTasks>
          }
         ]
       }
