@@ -4,11 +4,19 @@ import { AuthContext } from '../provider/AuthProvider'
 
 const SocialLogin = () => {
 
-    const {name }= useContext(AuthContext)
-    console.log("name",name)
+    const {handleGoogleLogin } = useContext(AuthContext)
+    // console.log("name",name)
 
     // google login
-    const googleLogin = () =>{}
+    const googleLogin = () =>{
+        handleGoogleLogin()
+        .then((res) =>{
+            console.log(res.user)
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+    }
 
     return (
         <div>
