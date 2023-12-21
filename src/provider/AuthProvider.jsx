@@ -4,41 +4,60 @@ import auth from "../firebase/firebase.config";
 
 export const AuthContext = createContext()
 
-const AuthProvider = ({children}) => {
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState(null)
+const AuthProvider = ({ children }) => {
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
-     //google auth provider
-     const googleProvider = new GoogleAuthProvider();
+  //google auth provider
+  const googleProvider = new GoogleAuthProvider();
 
 
-       // google login or signup
-       const handleGoogleLogin = () =>{
-        setLoading(true)
-        return signInWithPopup(auth, googleProvider);
+  // google login or signup
+  const handleGoogleLogin = () => {
+    setLoading(true)
+    return signInWithPopup(auth, googleProvider);
+  }
+
+  // Register user with email, password
+  const signup = (email, password) => {
+    setLoading(true)
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+
+  //   when a user sign up with email and password 
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo
+    })
+  }
+
+
+
+
+  useEffect(() => {
+
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false)
+      console.log(currentUser)
+
+
+    })
+    return () => {
+      return unSubscribe()
     }
+  }, [])
 
-    useEffect(()=>{
-
-      const unSubscribe = onAuthStateChanged(auth,(currentUser)=>{
-        setUser(currentUser);
-        setLoading(false)
-        console.log(currentUser)
- 
-        
-      })
-      return ()=>{
-        return unSubscribe()
-      }
-    },[])
-
-    const userInfo = {
-        handleGoogleLogin
-    }
+  const userInfo = {
+    handleGoogleLogin,
+    signup,
+    updateUserProfile
+  }
 
   return (
     <AuthContext.Provider value={userInfo}>
-        {children}
+      {children}
     </AuthContext.Provider>
   )
 }

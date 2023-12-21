@@ -1,13 +1,44 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import SocialLogin from '../components/SocialLogin'
+import { AuthContext } from '../provider/AuthProvider'
+import { imageUpload } from '../api/uploadImage'
+import { toast } from 'react-toastify'
 
 const Register = () => {
   const { register, handleSubmit, reset, watch, formState: { errors }, } = useForm()
   const navigate = useNavigate()
+  const {signup,updateUserProfile} = useContext(AuthContext)
 
-  const onSubmit = async (data) => {}
+  const onSubmit = async (data) => {
+     // console.log(data)
+
+     try {
+      // console.log(data)
+
+      // 1. image host
+      const imageData = await imageUpload(data.photo[0])
+      // console.log(imageData)
+
+      // 2. create user
+     const result = await signup(data.email, data.password)
+     //    console.log(result)
+
+      // 3. update user
+      await updateUserProfile(data.name, imageData?.data?.display_url)
+      toast.success("SignUp Successfully !!")
+      // console.log(result)
+      navigate("/")
+
+     
+
+  } catch (error) {
+      console.log(error)
+      toast.error(error.message)
+  }
+
+  }
   return (
     <div>
 
