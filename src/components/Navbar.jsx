@@ -23,7 +23,7 @@ const Navbar = () => {
     // navlink for re usable
     const links = <>
         <li><NavLink to="/" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Home </NavLink></li>
-        <li><NavLink to="/hgh" className={({ isActive }) => isActive ? "border-b-2 border-red-600 text-white font-semibold" : ""}>  Messages </NavLink></li>
+       
         
         {
             user ? <>

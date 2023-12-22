@@ -41,7 +41,8 @@ const router = createBrowserRouter([
       },
       {
         path: "tasks/:id",
-        element: <EditTask></EditTask>
+        element: <EditTask></EditTask>,
+        loader: ({params}) => fetch(`http://localhost:5000/tasks/${params.id}`)
       },
       {
         path: "dashboard",

@@ -5,7 +5,7 @@ import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn, FaYoutube } from "rea
 const Footer = () => {
     return (
         <div className='bg-black py-10 text-gray-200'>
-            <div className="max-w-7xl text-center flex flex-col lg:flex-row items-center gap-3 justify-between mx-auto">
+            <div className="max-w-7xl text-center flex flex-col lg:flex-row items-center px-3 gap-3 justify-between mx-auto">
                 <div className='flex flex-col items-center gap-2'>
                     <img src="/logo.png" alt="" />
                     <h2 className='text-2xl font-bold'>SCC Technovision</h2>
