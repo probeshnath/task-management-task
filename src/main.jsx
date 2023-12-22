@@ -12,8 +12,11 @@ import AuthProvider from './provider/AuthProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DashboardHome from './pages/Dashboard/DashboardHome';
-import MyProfile from './pages/Dashboard/MyTasks';
 import MyTasks from './pages/Dashboard/MyTasks';
+
+// dnd durg and drop
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 // route
@@ -38,15 +41,15 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard></Dashboard>,
-        children:[
-         {
-          index:true,
-          element: <DashboardHome ></DashboardHome>
-         },
-         {
-          path:"/dashboard/mytasks",
-          element: <MyTasks></MyTasks>
-         }
+        children: [
+          {
+            index: true,
+            element: <DashboardHome ></DashboardHome>
+          },
+          {
+            path: "/dashboard/mytasks",
+            element: <MyTasks></MyTasks>
+          }
         ]
       }
 
@@ -57,9 +60,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-    <ToastContainer />
+    <DndProvider backend={HTML5Backend}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+      <ToastContainer />
+    </DndProvider>
   </React.StrictMode>,
 )
