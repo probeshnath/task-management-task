@@ -16,6 +16,21 @@ const MyTasks = () => {
   const [onGoing, setOnGoing] = useState(null)
   const [completed, setCompleted] = useState(null)
 
+  const handleDelete = (id) =>{
+    // console.log(id)
+    axiosPublic.delete(`/tasks/${id}`)
+    .then(res =>{
+        console.log(res.data)
+        if(res.data.deletedCount > 0){
+            toast.success("Task Deleted")
+        }
+    })
+    .catch(err =>{
+        console.log(err)
+    })
+
+}
+
   useEffect(() => {
 
     axiosPublic.get(`/tasks/${user?.email}`)
@@ -26,7 +41,9 @@ const MyTasks = () => {
       .catch(err => {
         console.log(err)
       })
-  }, [user])
+  }, [user,handleDelete])
+
+
 
   useEffect(() => {
     const fTodos = tasks?.filter(task => task.status === "todo")
@@ -68,7 +85,7 @@ const MyTasks = () => {
 
           {
             todo?.map((to, inx) => (
-             <Task  key={inx} to={to} />
+             <Task handleDelete={handleDelete}  key={inx} to={to} />
             ))
           }
 
@@ -85,7 +102,7 @@ const MyTasks = () => {
        
         {
             onGoing?.map((to, inx) => (
-              <Task  key={inx} to={to} />
+              <Task handleDelete={handleDelete} key={inx} to={to} />
             ))
           }
           
@@ -102,7 +119,7 @@ const MyTasks = () => {
 
           {
             completed?.map((to, inx) => (
-              <Task  key={inx} to={to} />
+              <Task handleDelete={handleDelete}  key={inx} to={to} />
             ))
           }
 
