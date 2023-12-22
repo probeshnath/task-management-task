@@ -16,6 +16,10 @@ const MyTasks = () => {
   const [onGoing, setOnGoing] = useState(null)
   const [completed, setCompleted] = useState(null)
 
+  // const handleEdit = (to) =>{
+
+  // }
+
   const handleDelete = (id) =>{
     // console.log(id)
     axiosPublic.delete(`/tasks/${id}`)
@@ -58,13 +62,14 @@ const MyTasks = () => {
 
   const statuses = ["todo", "ongoing", "completed"]
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [collectedProps, drop] = useDrop(() => ({
     accept: "task",
     drop: (item) =>addItemToSection(item.id,item.status) ,
     collect: (monitor) => ({
-      isOver: !!monitor.isOver()
+      endDrag: monitor.getDropResult()
     })
   }))
+  // console.log(drop)
   
   const addItemToSection = (id,status) =>{
     console.log("droped",id,status)
@@ -78,14 +83,14 @@ const MyTasks = () => {
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3" ref={drop} >
       {/* to do list */}
-      <div className={`border p-5 ${isOver ? "bg-slate-200" : ""}`} ref={drop}>
+      <div className={`border p-5 `} ref={drop}>
         <h2 className="text-2xl font-bold text-orange-600 flex items-center gap-2"><TfiWrite className="text-blue-700" /> To-Do List</h2>
         <ul className="py-4 flex flex-col gap-2">
 
 
           {
             todo?.map((to, inx) => (
-             <Task handleDelete={handleDelete}  key={inx} to={to} />
+             <Task  handleDelete={handleDelete}  key={inx} to={to} />
             ))
           }
 
@@ -95,14 +100,14 @@ const MyTasks = () => {
         </ul>
       </div>
       {/* on going list */}
-      <div className={`border p-5 ${isOver ? "bg-slate-200" : ""}`}  ref={drop}>
+      <div className={`border p-5 `}  ref={drop}>
         <h2 className="text-2xl font-bold text-orange-600 flex items-center gap-2"><TfiWrite className="text-blue-700" /> Ongoing List</h2>
         <ul className="py-4 flex flex-col gap-2">
 
        
         {
             onGoing?.map((to, inx) => (
-              <Task handleDelete={handleDelete} key={inx} to={to} />
+              <Task  handleDelete={handleDelete} key={inx} to={to} />
             ))
           }
           
@@ -111,7 +116,7 @@ const MyTasks = () => {
         </ul>
       </div>
       {/* complete list */}
-      <div className={`border p-5 ${isOver ? "bg-slate-200" : ""}`}  ref={drop}>
+      <div className={`border p-5 `}  ref={drop}>
         <h2 className="text-2xl font-bold text-orange-600 flex items-center gap-2"><TfiWrite className="text-blue-700" /> completed Task</h2>
         <ul className="py-4 flex flex-col gap-2">
 
@@ -119,7 +124,7 @@ const MyTasks = () => {
 
           {
             completed?.map((to, inx) => (
-              <Task handleDelete={handleDelete}  key={inx} to={to} />
+              <Task  handleDelete={handleDelete}  key={inx} to={to} />
             ))
           }
 

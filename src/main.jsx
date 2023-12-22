@@ -17,6 +17,7 @@ import MyTasks from './pages/Dashboard/MyTasks';
 // dnd durg and drop
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import EditTask from './pages/EditTask';
 
 
 // route
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>
+      },
+      {
+        path: "tasks/:id",
+        element: <EditTask></EditTask>
       },
       {
         path: "dashboard",

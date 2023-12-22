@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import usePublicAxios from '../hooks/usePublicAxios';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const Task = ({to , handleDelete}) => {
     const axiosPublic = usePublicAxios()
@@ -27,7 +28,7 @@ const Task = ({to , handleDelete}) => {
       <div className="flex my-2 w-full justify-between">
         <p className="bg-green-200 px-2 text-sm font-bold text-green-600 rounded-lg">{to?.priority}</p>
         <p className="text-gray-400 text-sm">{to?.deadline}</p>
-        <FaEdit title="Edit task" className="text-lg cursor-pointer text-orange-500" />
+        <Link to={`/tasks/${to._id}` }><FaEdit  title="Edit task" className="text-lg cursor-pointer text-orange-500" /></Link>
         <MdDelete onClick={()=>{handleDelete(to._id)}} title="Delete task" className="cursor-pointer text-xl text-red-600" />
       </div>
     </div>
